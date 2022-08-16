@@ -108,7 +108,7 @@ def start(update: Update, context: CallbackContext):
             first_name = update.effective_user.first_name
             uptime = get_readable_time((time.time() - StartTime))
             hmm = "◍ Hᴇʟʟᴏ *{}*!".format(escape_markdown(first_name))
-            HMM = hmm + PM_START_TEXT.format(uptime)
+            start_text = hmm + PM_START_TEXT.format(uptime)
             try:
                 if start_id in ("jpeg", "jpg", "png"):
                     update.effective_message.reply_photo(
