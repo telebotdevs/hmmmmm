@@ -109,14 +109,28 @@ def start(update: Update, context: CallbackContext):
             uptime = get_readable_time((time.time() - StartTime))
             hmm = "◍ Hᴇʟʟᴏ *{}*!".format(escape_markdown(first_name))
             HMM = hmm + PM_START_TEXT.format(uptime)
-
-            update.effective_message.reply_text(
-                HMM,                        
-                reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
-                disable_web_page_preview=False,
-            )
+            try:
+                if start_id in ("jpeg", "jpg", "png"):
+                    update.effective_message.reply_photo(
+                        START_MEDIA, caption = start_text, reply_markup=InlineKeyboardMarkup(buttons),
+                    parse_mode=ParseMode.MARKDOWN,
+                )
+                elif start_id in ("mp4", "mkv"):
+                    update.effective_message.reply_video(
+                    START_MEDIA, caption = start_text, reply_markup=InlineKeyboardMarkup(buttons),
+                    parse_mode=ParseMode.MARKDOWN,
+                )
+                elif start_id in ("gif", "webp"):
+                    update.effective_message.reply_animation(
+                    START_MEDIA, caption = start_text, reply_markup=InlineKeyboardMarkup(buttons),
+                    parse_mode=ParseMode.MARKDOWN,
+                )
+                else:
+                    update.effective_message.reply_text(start_text, reply_markup=InlineKeyboardMarkup(buttons),
+                    parse_mode=ParseMode.MARKDOWN,)
+            except:
+                update.effective_message.reply_text(start_text, reply_markup=InlineKeyboardMarkup(buttons),
+                    parse_mode=ParseMode.MARKDOWN,)
     else:
         start_buttons = [
                  [
